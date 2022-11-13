@@ -1,0 +1,58 @@
+[
+  {
+    "Pais": "Argentina",
+    "Tasa de natalidad": 20.7
+  },
+  {
+    "Pais": "Bolivia",
+    "Tasa de natalidad": 46.6
+  },
+  {
+    "Pais": "Brazil",
+    "Tasa de natalidad": 28.6
+  },
+  {
+    "Pais": "Canada",
+    "Tasa de natalidad": 14.5
+  },
+  {
+    "Pais": "Chile",
+    "Tasa de natalidad": 23.4
+  },
+  {
+    "Pais": "Columbia",
+    "Tasa de natalidad": 27.4
+  },
+  {
+    "Pais": "Ecuador",
+    "Tasa de natalidad": 32.9
+  },
+  {
+    "Pais": "Guyana",
+    "Tasa de natalidad": 28.3
+  },
+  {
+    "Pais": "Mexico",
+    "Tasa de natalidad": 29
+  },
+  {
+    "Pais": "Paraguay",
+    "Tasa de natalidad": 34.8
+  },
+  {
+    "Pais": "Peru",
+    "Tasa de natalidad": 32.9
+  },
+  {
+    "Pais": "U.S.A.",
+    "Tasa de natalidad": 16.7
+  },
+  {
+    "Pais": "Uruguay",
+    "Tasa de natalidad": 18
+  },
+  {
+    "Pais": "Venezuela",
+    "Tasa de natalidad": 27.5
+  }
+]
