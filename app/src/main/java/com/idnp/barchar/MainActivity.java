@@ -22,36 +22,29 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<String> tasaNatalidad = new ArrayList<>();
+    //ArrayList<String> tasaNatalidad = new ArrayList<>();
+    private CustomView mCustomView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CustomView customView = new CustomView(this);
+        mCustomView = (CustomView) findViewById(R.id.customView);
+        mCustomView.addData(20.7);
+        mCustomView.addData(46.6);
+        mCustomView.addData(28.6);
+        mCustomView.addData(14.5);
+        mCustomView.addData(23.4);
+        mCustomView.addData(27.4);
+        mCustomView.addData(32.9);
+        mCustomView.addData(28.3);
+        mCustomView.addData(29);
+        mCustomView.addData(34.8);
+        mCustomView.addData(32.9);
+        mCustomView.addData(16.7);
+        mCustomView.addData(18);
+        mCustomView.addData(27.5);
 
-        //Toast.makeText(getApplicationContext(), leerJson(), Toast.LENGTH_LONG).show();
-
-    }
-
-    public void getJson() {
-        String json;
-        try {
-            InputStream is = getAssets().open("tasaNatalidad.json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read();
-            is.close();
-
-            json = new String(buffer, "UTF-8");
-            JSONArray jsonArray = new JSONArray(json);
-
-            for(int i=0; i<jsonArray.length(); i++){
-                JSONObject obj = jsonArray.getJSONObject(i);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
