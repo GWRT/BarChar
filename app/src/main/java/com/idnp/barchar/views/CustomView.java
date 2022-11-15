@@ -60,7 +60,7 @@ public class CustomView extends View {
         int totalValues = dataList.size();
         double maxValue = findMaxValue();
         double barWidth = (getWidth() * 0.45) / (totalValues + 1);
-//        double spacing = barWidth/totalValues;
+        //double spacing = barWidth/totalValues;
         double screenHeight = getMeasuredHeight() * 0.8;
         int granularity = calculateMaxValueOnXAxis(maxValue, totalValues);
 
@@ -93,7 +93,7 @@ public class CustomView extends View {
             mRectSquare.bottom = (int) (mRectSquare.top + barHeight);
             x += 2* barWidth;
             paddingBars = (float) (x-1.4* barWidth);
-//            paddingBars = (float) (x-(barWidth/2));
+            //paddingBars = (float) (x-(barWidth/2));
             //canvas.drawText(paises.get(i), (float) (paddingBars), (float) (screenHeight), textPaint);
             canvas.drawRect(mRectSquare, mPaintSquare);
             canvas.rotate((float) -90, (float) (paddingBars), (float) (screenHeight));
@@ -114,8 +114,8 @@ public class CustomView extends View {
         return (int)(maxValue + (totalValues - (maxValue % totalValues)));
     }
 
-    public void addData(String countries, double value){
-        countryList.add(countries);
+    public void addData(String country, double value){
+        countryList.add(country);
         dataList.add(value);
     }
 }

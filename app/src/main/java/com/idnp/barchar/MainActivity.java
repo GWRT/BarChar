@@ -1,36 +1,17 @@
 package com.idnp.barchar;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.idnp.barchar.views.CustomView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
-
-    //ArrayList<String> tasaNatalidad = new ArrayList<>();
-    private CustomView mCustomView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mCustomView = (CustomView) findViewById(R.id.customView);
+        CustomView mCustomView = (CustomView) findViewById(R.id.customView);
         mCustomView.addData("Argentina", 20.7);
         mCustomView.addData("Bolivia",46.6);
         mCustomView.addData("Brazil",28.6);
