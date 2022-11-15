@@ -5,10 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
+    android:theme="@style/Theme.Material3.Light"
     android:orientation="vertical"
     android:gravity="center"
     >
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tasa de natalidad"
+        android:layout_gravity="center" />
     <com.idnp.barchar.views.CustomView
         android:id="@+id/customView"
         android:layout_width="match_parent"

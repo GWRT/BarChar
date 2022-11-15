@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -15,92 +14,108 @@ import java.util.ArrayList;
 
 public class CustomView extends View {
 
-    private static final int SQUARE_SIZE_DEF = 200;
     private Rect mRectSquare;
     private Paint mPaintSquare;
-    private double barWidth;
-    private double barHeight;
-    private double screenHeight;
-    private double screenWidth;
+    private Paint textPaint;
+    private Paint linesPaint;
 
     //double [] datos = {5, 10, 2.5, 5, 8.2, 10, 6.1, 4.7, 6, 10,1.5,9,0.1};
     //11 datos
-    ArrayList<Double> datos;
+    private ArrayList<String> countryList;
+    private ArrayList<Double> dataList;
 
     public CustomView(Context context) {
         super(context);
 
-        init(null);
+        init();
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
 
-        init(attrs);
+        init();
     }
 
     public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public CustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
-
-    private void init(@Nullable AttributeSet set){
+    private void init(){
 
         mRectSquare = new Rect();
         mPaintSquare = new Paint(Paint.ANTI_ALIAS_FLAG);
-        datos = new ArrayList<>();
-
-        /*
-        if(set == null)
-            return;
-
-        TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.CustomView);
-
-        mSquareSize = ta.getDimensionPixelSize(R.styleable.CustomView_bar_size, SQUARE_SIZE_DEF);
-
-        ta.recycle();
-        */
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        linesPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        dataList = new ArrayList<>();
+        countryList = new ArrayList<>();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 
         mPaintSquare.setColor(Color.GREEN);
+        textPaint.setColor(Color.YELLOW);
+        linesPaint.setColor(Color.YELLOW);
 
-
-        int totalValues = datos.size();
+        int totalValues = dataList.size();
         double maxValue = findMaxValue();
-        barWidth = (getWidth()*0.9)/(totalValues+1);
-        double spacing = barWidth/totalValues;
-        screenHeight = getHeight();
-        screenWidth = getWidth()*0.9;
+        double barWidth = (getWidth() * 0.45) / (totalValues + 1);
+//        double spacing = barWidth/totalValues;
+        double screenHeight = getMeasuredHeight() * 0.8;
+        int granularity = calculateMaxValueOnXAxis(maxValue, totalValues);
 
-        int x = 50;
-        int y = (int) screenHeight-50;
+        int x = 125;
+        int y = (int) (screenHeight *0.9);
+        float paddingBars;
 
+        //Drawing Lines
+        int startX = 100, stopX = getMeasuredWidth()-50;
+        int position = y, startY, stopY;
+
+        int startAxisPosition = 50;
+        int finalAxisPosition = y;
+        int xAxisValues = 0;
+
+        for(int i = 0; i < totalValues; i++){
+            startY = stopY = position;
+            canvas.drawText(String.valueOf(xAxisValues), (float) startAxisPosition, (float) finalAxisPosition, textPaint);
+            canvas.drawLine(startX, startY, stopX, stopY, linesPaint);
+            finalAxisPosition = position -= y/totalValues;
+            xAxisValues += granularity/totalValues;
+        }
+
+        //Drawing Bar Char
         for(int i = 0; i < totalValues; i++ ){
             mRectSquare.left = x;
             mRectSquare.top = y;
             mRectSquare.right = (int)(mRectSquare.left + barWidth);
-            barHeight = -((datos.get(i) * screenHeight) / maxValue);
+            double barHeight = -((dataList.get(i) * y) / granularity);
             mRectSquare.bottom = (int) (mRectSquare.top + barHeight);
+            x += 2* barWidth;
+            paddingBars = (float) (x-1.4* barWidth);
+//            paddingBars = (float) (x-(barWidth/2));
+            //canvas.drawText(paises.get(i), (float) (paddingBars), (float) (screenHeight), textPaint);
             canvas.drawRect(mRectSquare, mPaintSquare);
-            x += barWidth + spacing;
+            canvas.rotate((float) -90, (float) (paddingBars), (float) (screenHeight));
+            canvas.drawText(countryList.get(i), (float) (paddingBars), (float) (screenHeight), textPaint);
+            canvas.rotate(90F, (float) (paddingBars), (float) (screenHeight));
         }
     }
 
     protected double findMaxValue(){
         double maxValue=0;
-        for(int i = 0; i < datos.size(); i++)
-            maxValue = (maxValue < datos.get(i)) ? datos.get(i) : maxValue;
+        for(int i = 0; i < dataList.size(); i++)
+            maxValue = (maxValue < dataList.get(i)) ? dataList.get(i) : maxValue;
 
         return maxValue;
     }
 
-    public void addData(double value){
-        datos.add(value);
+    protected int calculateMaxValueOnXAxis(double maxValue, int totalValues){
+        return (int)(maxValue + (totalValues - (maxValue % totalValues)));
+    }
+
+    public void addData(String countries, double value){
+        countryList.add(countries);
+        dataList.add(value);
     }
 }
